@@ -1,0 +1,24 @@
+---
+import { getImageUrl } from "../backend.mjs";
+
+const { record, imageField = "image", width = 600, height = 300 } = Astro.props;
+
+const value = record?.[imageField];
+const fileName = Array.isArray(value) ? value[0] : value;
+
+const imageURL = record && fileName ? getImageUrl(record, fileName) : null;
+---
+
+{
+    imageURL ? (
+        <img
+            src={imageURL}
+            alt={`Photo de ${record.nom_maison ?? "maison"}`}
+            width={width}
+            height={height}
+            class="w-full h-48 object-cover rounded-lg mb-3"
+        />
+    ) : (
+        <p style="color:#b91c1c;">Aucune image trouvée</p>
+    )
+}
