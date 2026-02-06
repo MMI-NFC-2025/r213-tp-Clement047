@@ -1,0 +1,41 @@
+---
+import { getOffre } from "../../backend.mjs";
+import Layout from "../../layouts/Layout.astro";
+import PbImage from "../../components/PbImage.astro";
+
+const { id } = Astro.params;
+const offre = await getOffre(id);
+
+const firstImage = offre?.image?.[0]; // puisque image est un tableau
+---
+
+<Layout titre={offre?.nom_maison ?? "Offre introuvable"}>
+    {
+        offre ? (
+            <>
+                <h2>{offre.nom_maison}</h2>
+
+                {firstImage ? (
+                    <PbImage
+                        record={offre}
+                        recordImage={firstImage}
+                        width={800}
+                        height={400}
+                    />
+                ) : (
+                    <p class="text-red-600">Aucune image trouvée</p>
+                )}
+
+                <ul>
+                    <li>{offre.adresse_complete}</li>
+                    <li>{offre.nombre_chambre} chambres</li>
+                    <li>{offre.nombre_salle_de_bain} salles de bain</li>
+                    <li>{offre.surface} m²</li>
+                    <li>{offre.prix} €</li>
+                </ul>
+            </>
+        ) : (
+            <p>Offre introuvable</p>
+        )
+    }
+</Layout>

@@ -19,3 +19,12 @@ export function getImageUrl(record, fileName) {
 }
 
 
+export async function getOffre(id) {
+    try {
+        const data = await pb.collection("Maison").getOne(id);
+        return data;
+    } catch (error) {
+        console.log("Une erreur est survenue en lisant la maison", error);
+        return null;
+    }
+}

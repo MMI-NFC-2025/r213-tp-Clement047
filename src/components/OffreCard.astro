@@ -16,3 +16,7 @@ const { offre } = Astro.props;
     <p>Favori : {offre.favori ? "oui" : "non"}</p>
     <PbImage record={offre} image={offre.image[0]} width={600} height={300} />
 </article>
+
+<a href={`/offres/${offre.id}`} class="underline inline-block mt-2">
+    Voir plus
+</a>
