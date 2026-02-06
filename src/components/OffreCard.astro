@@ -1,4 +1,6 @@
 ---
+import PbImage from "./PbImage.astro";
+
 const { offre } = Astro.props;
 ---
 
@@ -12,11 +14,5 @@ const { offre } = Astro.props;
     </p>
     <p class="font-semibold">{offre.prix} €</p>
     <p>Favori : {offre.favori ? "oui" : "non"}</p>
+    <PbImage record={offre} image={offre.image[0]} width={600} height={300} />
 </article>
-<img
-    src={`/img/${offre.imgUrl}`}
-    alt={`Photo de ${offre.nom_maison}`}
-    class="w-full h-40 object-cover rounded-lg mb-3"
-/>
-
-

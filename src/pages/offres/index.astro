@@ -1,15 +1,14 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import OffreCard from "../components/OffreCard.astro";
-import PbImage from "../components/PbImage.astro";
-import { getOffres } from "../backend.mjs";
+import Layout from "../../layouts/Layout.astro";
+import OffreCard from "../../components/OffreCard.astro";
+import PbImage from "../../components/PbImage.astro";
+import { getOffres } from "../../backend.mjs";
 
 const offres = await getOffres();
 ---
 
 <Layout titre="Offres">
   <h1>Offres</h1>
-  
 
   <button id="favori-button" class="bg-slate-600 rounded-lg text-white p-2">
     Afficher les favoris

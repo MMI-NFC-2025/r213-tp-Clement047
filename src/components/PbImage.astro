@@ -1,12 +1,9 @@
 ---
 import { getImageUrl } from "../backend.mjs";
 
-const { record, imageField = "image", width = 600, height = 300 } = Astro.props;
+const { record, image, width = 600, height = 300 } = Astro.props;
 
-const value = record?.[imageField];
-const fileName = Array.isArray(value) ? value[0] : value;
-
-const imageURL = record && fileName ? getImageUrl(record, fileName) : null;
+const imageURL =  getImageUrl(record, image);
 ---
 
 {
