@@ -1,0 +1,30 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getOffres } from "../../../backend.mjs";
+
+const { surface } = Astro.params;
+const minSurface = Number(surface);
+
+const offres = await getOffres();
+const offresFiltrees = offres.filter((o) => Number(o.surface) > minSurface);
+---
+
+<Layout titre={`Offres > ${minSurface} m²`}>
+    <h1>Maisons avec surface &gt; {minSurface} m²</h1>
+
+    {
+        offresFiltrees.length ? (
+            <ul>
+                {offresFiltrees.map((offre) => (
+                    <li>
+                        <a href={`/offres/${offre.id}`} class="underline">
+                            {offre.nom_maison} — {offre.surface} m²
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        ) : (
+            <p>Aucune maison trouvée.</p>
+        )
+    }
+</Layout>
