@@ -2,6 +2,27 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout titre="Accueil">
-	<h1>Accueil</h1>
+<Layout titre="CityHome">
+	<section class="home">
+		<h1 class="home-title">CityHome</h1>
+
+		<p class="home-subtitle">
+			Trouve ta prochaine maison, consulte les offres, filtre et ajoute
+			une annonce en quelques clics.
+		</p>
+
+		<div class="home-actions">
+			<a href="/offres" class="btn-primary">Voir les offres</a>
+			<a href="/offres/add" class="btn-primary btn-secondary"
+				>Ajouter une offre</a
+			>
+		</div>
+
+		<div class="home-links">
+			<a href="/offres/surface/80" class="link-soft">Maisons &gt; 80 m²</a
+			>
+			<a href="/offres/prix/3000" class="link-soft">Maisons &lt; 3000 €</a
+			>
+		</div>
+	</section>
 </Layout>

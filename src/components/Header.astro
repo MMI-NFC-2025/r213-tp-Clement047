@@ -1,4 +1,97 @@
-<nav>
-    <a href="/">Accueil</a>
-    <a href="/offres">Offres</a>
-</nav>
+---
+const currentPath = Astro.url.pathname;
+
+const isActive = (path) =>
+    currentPath === path ? "nav-link active" : "nav-link";
+---
+
+<header class="site-header">
+    <div class="header-container">
+        <!-- Logo / Nom du site -->
+        <a href="/" class="logo">CityHome</a>
+
+        <!-- Navigation -->
+        <nav class="nav-links">
+            <a href="/" class={isActive("/")}>Accueil</a>
+            <a href="/offres" class={isActive("/offres")}>Offres</a>
+
+            <a href="/offres/add" class="btn-primary header-btn">
+                Ajouter une offre
+            </a>
+        </nav>
+    </div>
+</header>
+
+<style>
+    .site-header {
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+
+    .header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 14px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .logo {
+        font-weight: 800;
+        font-size: 18px;
+        text-decoration: none;
+        color: #111827;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        font-weight: 600;
+        color: #374151;
+        padding: 8px 12px;
+        border-radius: 8px;
+        transition:
+            background 0.2s ease,
+            color 0.2s ease,
+            transform 0.15s ease;
+    }
+
+    .nav-link:hover {
+        background: #eef2ff;
+        color: #1d4ed8;
+        transform: translateY(-1px);
+    }
+
+    .nav-link.active {
+        background: #2563eb;
+        color: white;
+    }
+
+    /* Bouton "Ajouter une offre" compact mais même style que btn-primary */
+    .header-btn {
+        padding: 8px 12px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+
+    /* Responsive: si écran petit, on garde tout mais on évite le débordement */
+    @media (max-width: 520px) {
+        .header-container {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .nav-links {
+            flex-wrap: wrap;
+        }
+    }
+</style>

@@ -1,5 +1,5 @@
 ---
-import "../styles/global.css"; // ✅ charge ton CSS global partout
+import "../styles/global.css";
 import Header from "../components/Header.astro";
 
 const { titre } = Astro.props;
@@ -8,13 +8,25 @@ const { titre } = Astro.props;
 <html lang="fr">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <title>{titre}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{titre ? `${titre} | CityHome` : "CityHome"}</title>
+        <meta
+            name="description"
+            content="CityHome — Trouvez votre prochaine maison."
+        />
     </head>
-    <body>
+
+    <body class="min-h-screen bg-gray-50 text-gray-900">
         <Header />
-        <main>
+
+        <main class="max-w-6xl mx-auto px-4 py-10">
             <slot />
         </main>
+
+        <footer class="border-t bg-white">
+            <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-gray-500">
+                © {new Date().getFullYear()} CityHome — Astro + PocketBase
+            </div>
+        </footer>
     </body>
 </html>

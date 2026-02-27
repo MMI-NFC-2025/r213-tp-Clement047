@@ -1,0 +1,65 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { addOffre } from "../../backend.mjs";
+
+let message = "";
+
+if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+    const response = await addOffre(formData);
+    message = response.message;
+}
+---
+
+<Layout titre="Ajouter une offre">
+    <h1 class="text-2xl font-bold mb-6">Ajouter une offre</h1>
+
+    {message && <p class="mb-4 text-green-600 font-medium">{message}</p>}
+
+    <form
+        action="/offres/add"
+        method="POST"
+        enctype="multipart/form-data"
+        class="flex flex-col gap-4 max-w-md"
+    >
+        <input
+            type="text"
+            name="nom_maison"
+            placeholder="Nom de la maison"
+            required
+            class="p-2 border rounded-md"
+        />
+
+        <input
+            type="number"
+            name="prix"
+            placeholder="Prix"
+            class="p-2 border rounded-md"
+        />
+
+        <input
+            type="number"
+            name="nombre_salle_de_bain"
+            placeholder="Nombre de salles de bain"
+            class="p-2 border rounded-md"
+        />
+
+        <input
+            type="number"
+            name="nombre_chambre"
+            placeholder="Nombre de chambres"
+            class="p-2 border rounded-md"
+        />
+
+        <input
+            type="number"
+            name="surface"
+            placeholder="Superficie"
+            class="p-2 border rounded-md"
+        />
+
+        <input type="file" name="image" class="p-2 border rounded-md" />
+
+        <button type="submit" class="btn-primary"> Ajouter </button>
+    </form>
+</Layout>
