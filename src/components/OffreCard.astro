@@ -4,29 +4,65 @@ import PbImage from "./PbImage.astro";
 const { offre } = Astro.props;
 ---
 
-<article class="offre-card">
-    <!-- Image -->
-    <div class="offre-image">
+<article class="offre-card relative">
+    <div class="offre-image relative">
         <PbImage
             record={offre}
             image={offre.image?.[0]}
             width={600}
             height={300}
         />
+
+        <button
+            class="favoriteButton absolute top-3 right-3 bg-white p-2 rounded-full shadow-md"
+            data-offre={JSON.stringify(offre)}
+            data-favori={offre.favori ? "true" : "false"}
+            type="button"
+        >
+            <span class="favorite-heart">
+                {offre.favori ? "♥" : "♡"}
+            </span>
+        </button>
     </div>
 
-    <!-- Contenu -->
     <div class="offre-content">
         <h2 class="offre-title">{offre.nom_maison}</h2>
 
         <p class="offre-meta">
-            {offre.nombre_chambre} chambres •
-            {offre.nombre_salle_de_bain} sdb •
+            {offre.nombre_chambre} chambres • {offre.nombre_salle_de_bain} sdb •
             {offre.surface} m²
         </p>
 
         <p class="offre-price">{offre.prix} €</p>
 
-        <a href={`/offres/${offre.id}`} class="btn-primary">Voir plus</a>
+        <a href={`/offres/${offre.id}`} class="offre-link">Voir plus</a>
     </div>
 </article>
+
+<script>
+    //@ts-nocheck
+    import { setFavori } from "../backend.mjs";
+
+    const favoriteButtons = document.querySelectorAll(".favoriteButton");
+
+    favoriteButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const offreData = JSON.parse(button.dataset.offre || "{}");
+            const newFavori = !offreData.favori;
+
+            setFavori(offreData);
+
+            const heart = button.querySelector(".favorite-heart");
+            if (heart) {
+                heart.textContent = newFavori ? "♥" : "♡";
+            }
+
+            button.classList.add("clicked");
+            setTimeout(() => button.classList.remove("clicked"), 300);
+
+            offreData.favori = newFavori;
+            button.dataset.offre = JSON.stringify(offreData);
+            button.dataset.favori = newFavori ? "true" : "false";
+        });
+    });
+</script>

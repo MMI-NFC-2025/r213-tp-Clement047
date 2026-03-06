@@ -1,0 +1,21 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import OffreCard from "../../components/OffreCard.astro";
+import { getAgent, getOffresByAgent } from "../../backend.mjs";
+
+const { id } = Astro.params;
+
+const agent = await getAgent(id);
+const offres = await getOffresByAgent(id);
+---
+
+<Layout titre="Offres de l'agent">
+    <h1 class="text-2xl font-bold mb-4">
+        Offres de {agent?.nom}
+        {agent?.prenom}
+    </h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        {offres.map((offre) => <OffreCard offre={offre} />)}
+    </div>
+</Layout>

@@ -1,6 +1,7 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import { getOffres } from "../../../backend.mjs";
+import OffreCard from "../../../components/OffreCard.astro";
 
 const { prix } = Astro.params;
 const maxPrix = Number(prix);
@@ -10,19 +11,15 @@ const offresFiltrees = offres.filter((offre) => Number(offre.prix) < maxPrix);
 ---
 
 <Layout titre={`Offres à moins de ${maxPrix} €`}>
-    <h1>Maisons à moins de {maxPrix} €</h1>
+    <h1 class="text-3xl font-bold mb-6">Maisons à moins de {maxPrix} €</h1>
 
     {
         offresFiltrees.length ? (
-            <ul>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {offresFiltrees.map((offre) => (
-                    <li>
-                        <a href={`/offres/${offre.id}`} class="underline">
-                            {offre.nom_maison} — {offre.prix} €
-                        </a>
-                    </li>
+                    <OffreCard offre={offre} />
                 ))}
-            </ul>
+            </div>
         ) : (
             <p>Aucune maison trouvée.</p>
         )

@@ -234,3 +234,39 @@ input[type="file"]:focus {
 .link-soft:hover {
     text-decoration: underline;
 }
+
+
+.favoriteButton {
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.favorite-heart {
+    display: block;
+    font-size: 22px;
+    color: #ef4444;
+    transition: transform 0.2s ease;
+}
+
+.favoriteButton:hover .favorite-heart {
+    transform: scale(1.15);
+}
+
+.favoriteButton.clicked .favorite-heart {
+    animation: popHeart 0.35s ease;
+}
+
+@keyframes popHeart {
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.35);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
